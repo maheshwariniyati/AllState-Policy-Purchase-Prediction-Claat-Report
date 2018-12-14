@@ -63,49 +63,49 @@
 <li>previous coverage duration - in years</li>
 <li>policy coverage options- 2,304 possible combinations</li>
 </ul>
-<p><img style="max-width: 249.00px" src="img/cdd9eb132aa7feb3.png"></p>
+<p><img style="max-width: 249.00px" src="img\cdd9eb132aa7feb3.png"></p>
 <ul>
 <li>Cost - cost of quote</li>
 </ul>
 <p>        The dataset was rather complete only 4 columns in the training dataset were missing values car value, risk factor, previous coverage, and duration of previous coverage. This data was filled using the mode of the column. Risk factor was missing a significant portion of data, but we felt it was important to retain the feature as part of the set.</p>
 <p>        One of the most striking trends we noticed was that the last quote viewed by the customer was the purchased plan in 68% of the training set. We tested this theory with the test set and submitted into Kaggle.</p>
-<p><img style="max-width: 624.00px" src="img/592f4eb72396a76e.png"> </p>
+<p><img style="max-width: 624.00px" src="img\592f4eb72396a76e.png"> </p>
 <p>        In the above image, we can see that the ‘private&#39; score of our submission is 53.2%. Given that the best score in the competition was 53.7%, our model should incorporate some measure of trying to utilize customer attributes to determine if they will use their last viewed quote for their purchased quote.</p>
 <p>Another important attribute of our dataset is that the G category is the most likely category to not match the final quote. Through testing of our model, we were able to determine that only predicting G (and taking the final quote values for the other 6 categories) yields better results that trying to predict all 7 categories.</p>
-<p><img style="max-width: 380.00px" src="img/f9cbc6a2219b87bd.png"></p>
+<p><img style="max-width: 380.00px" src="img\f9cbc6a2219b87bd.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Coverage Prediction Approach" duration="0">
         <p>        Our approach to predict customer insurance coverage choices was two fold. First we would develop a classification algorithm to classify customers that were likely to use the last quote given as their purchase quote. If customers were likely to use their last quote received as their purchase quote, we would subset these customers aside. If customers were likely to change to a quote different than their last quote received, then the customer records would be put into a classification model to determine G insurance coverage option (G was the most likely category to be different). Once complete, we will join the data together and process into the format for the kaggle submission file (pairs of customer id and string of all chosen plan options).</p>
-<p><img style="max-width: 483.50px" src="img/8d19f1c109ba518b.png"></p>
+<p><img style="max-width: 483.50px" src="img\8d19f1c109ba518b.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Preparation and Model Training" duration="0">
         <p>        Based on the results of our EDA, we pre-processed our data to create a one line summary of customer data. This enabled simpler ingestion into ML models. First we set our model to fill missing values based on the column mode. Next, we incorporated the customer attributes, encoded categorical variables, and calculated summary metrics on their quote history. Finally, we incorporated the final coverage options offered to the customer prior to purchase and the coverage options purchased by the customer. </p>
-<p><img style="max-width: 624.00px" src="img/8ff861198cbbfabd.png"></p>
+<p><img style="max-width: 624.00px" src="img\8ff861198cbbfabd.png"></p>
 <p>This image shows a look at raw data with multiple entries per customer.</p>
-<p><img style="max-width: 624.00px" src="img/2b7ee9bcd25c43e6.png"></p>
+<p><img style="max-width: 624.00px" src="img\2b7ee9bcd25c43e6.png"></p>
 <p>This image shows summarized customer histories.</p>
 <p>        With the processed data we were then able to train classification models to achieve our goals. We trained and scored 8 types of classification models for the 8 different classification scenarios (7 coverage categories and customer choice match quote)  with varying ranges of accuracy. The scoring on the ‘customer choice match quote&#39; classification models are below. Upon reviewing our models, we selected GBM with grid search for our classification models. This decision was made because it had the highest scoring on the training data. We serialized or chosen model using the pickle package so that we can import the trained models in the prediction model.</p>
 <h2>Chosen Model:</h2>
-<p><img style="max-width: 488.00px" src="img/3950fb218409447b.png"></p>
+<p><img style="max-width: 488.00px" src="img\3950fb218409447b.png"></p>
 <p>GBM with grid search testing for customer match classification</p>
 <h2>Other Candidate Models:</h2>
-<p><img style="max-width: 498.00px" src="img/c0504223a9aab86b.png"></p>
+<p><img style="max-width: 498.00px" src="img\c0504223a9aab86b.png"></p>
 <p>Logistic regression testing for customer match classification</p>
-<p><img style="max-width: 506.00px" src="img/8e13c7019d53c8e0.png"></p>
+<p><img style="max-width: 506.00px" src="img\8e13c7019d53c8e0.png"></p>
 <p>Random forest classifier testing for customer match classification</p>
-<p><img style="max-width: 501.00px" src="img/6e03966e504769d1.png"></p>
+<p><img style="max-width: 501.00px" src="img\6e03966e504769d1.png"></p>
 <p>MLP classifier testing for customer match classification</p>
-<p><img style="max-width: 498.00px" src="img/af284fe7d9b82002.png"></p>
+<p><img style="max-width: 498.00px" src="img\af284fe7d9b82002.png"></p>
 <p>KNN classifier testing for customer match classification</p>
-<p><img style="max-width: 495.00px" src="img/903a653885a74560.png"></p>
+<p><img style="max-width: 495.00px" src="img\903a653885a74560.png"></p>
 <p>Stacked classifier  testing for customer match classification</p>
-<p><img style="max-width: 499.00px" src="img/1c4da41f47c618ea.png"></p>
+<p><img style="max-width: 499.00px" src="img\1c4da41f47c618ea.png"></p>
 <p>GBM for customer match classification</p>
 
 
@@ -114,12 +114,12 @@
       <google-codelab-step label="Model Testing" duration="0">
         <p>        To receive feedback on our test set we formatted our predicted insurance coverage categories into the competition submission file formatting (customer_ID and coverage choices string pairs). We had a variety of submissions ranging from simple to complex implementations  of ML models. Our best model implemented a GBM to classify whether a customer will choose all the categories of the last quote offered and, if the customer is unlikely to choose the last quote, another GBM to predict the G customer category. The chosen model yielded a submission file that was 53.0% accurate.</p>
 <h2>Chosen Submission:</h2>
-<p><img style="max-width: 624.00px" src="img/3bd42b1765d1351b.png"></p>
+<p><img style="max-width: 624.00px" src="img\3bd42b1765d1351b.png"></p>
 <p>Kaggle scoring of our chosen approach</p>
 <h2>Other Candidate Submissions:</h2>
-<p><img style="max-width: 624.00px" src="img/aa2cead47ec885b.png"></p>
+<p><img style="max-width: 624.00px" src="img\aa2cead47ec885b.png"></p>
 <p>Kaggle scoring of simple random forest with no hyperparameter tuning that predicts customer match and every customer coverage category</p>
-<p><img style="max-width: 624.00px" src="img/c801d4d66afd9c08.png"></p>
+<p><img style="max-width: 624.00px" src="img\c801d4d66afd9c08.png"></p>
 <p>Kaggle scoring of stacking classifier predicting customer match and every customer coverage category</p>
 
 
@@ -132,6 +132,8 @@
 <li>Docker</li>
 <li>Flask</li>
 <li>AWS</li>
+<li>Luigi</li>
+<li>AutoML as a service</li>
 </ul>
 
 
